@@ -28,6 +28,7 @@ func (s *authenticationService) Authenticate(email, password string) (string, er
 		log.Fatalf("Failed to read config file: %v", err)
 		return "", err
 	}
+
 	user, err := s.userRepository.FindByEmail(email)
 	if err != nil {
 		return "", err
@@ -37,7 +38,6 @@ func (s *authenticationService) Authenticate(email, password string) (string, er
 		return "", fmt.Errorf("invalid email or password")
 	}
 
-	// Generate JWT token
 	claims := jwt.MapClaims{
 		"sub": user.ID,
 		"exp": time.Now().Add(time.Minute * 30).Unix(),

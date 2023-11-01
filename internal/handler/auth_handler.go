@@ -4,22 +4,26 @@ import (
 	"encoding/json"
 	"fmt"
 	"net/http"
-	services "simple-auth/internal/service"
+	"simple-auth/internal/entity"
+	service "simple-auth/internal/service"
 )
 
 type authenticationHandler struct {
-	authService services.AuthenticationService
+	authService service.AuthenticationService
 }
 
-func NewAuthenticationHandler(authService services.AuthenticationService) AuthenticationHandler {
+func NewAuthenticationHandler(authService service.AuthenticationService) AuthenticationHandler {
 	return &authenticationHandler{authService}
 }
 
 func (h *authenticationHandler) Login(w http.ResponseWriter, r *http.Request) {
-	var payload struct {
-		Email    string `json:"email"`
-		Password string `json:"password"`
-	}
+	var (
+		response entity.LoginResponse
+		payload  struct {
+			Email    string `json:"email"`
+			Password string `json:"password"`
+		}
+	)
 
 	decoder := json.NewDecoder(r.Body)
 	if err := decoder.Decode(&payload); err != nil {
@@ -32,18 +36,22 @@ func (h *authenticationHandler) Login(w http.ResponseWriter, r *http.Request) {
 
 	token, err := h.authService.Authenticate(email, password)
 	if err != nil {
-		http.Error(w, fmt.Sprintf("Login failed: %v", err), http.StatusUnauthorized)
+		response = entity.LoginResponse{
+			Code:    "01",
+			Message: fmt.Sprintf("failed : %s", err),
+			Token:   "",
+		}
+
+		w.Header().Set("Content-Type", "application/json")
+		w.WriteHeader(http.StatusUnauthorized)
+		json.NewEncoder(w).Encode(response)
 		return
 	}
 
-	response := struct {
-		Code        int    `json:"code"`
-		Message     string `json:"message"`
-		AccessToken string `json:"access_token"`
-	}{
-		Code:        00,
-		Message:     "success",
-		AccessToken: token,
+	response = entity.LoginResponse{
+		Code:    "00",
+		Message: "success",
+		Token:   token,
 	}
 
 	w.Header().Set("Content-Type", "application/json")

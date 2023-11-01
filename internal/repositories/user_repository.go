@@ -27,3 +27,24 @@ func (r *userRepository) FindByEmail(email string) (*entity.User, error) {
 
 	return &user, nil
 }
+
+func (r *userRepository) FindAll() ([]entity.User, error) {
+	query := "SELECT id, fullname, email, age, phone_number FROM users"
+	rows, err := r.db.Query(query)
+	if err != nil {
+		return nil, err
+	}
+	defer rows.Close()
+
+	var users []entity.User
+	for rows.Next() {
+		var user entity.User
+		err := rows.Scan(&user.ID, &user.Fullname, &user.Email, &user.Age, &user.PhoneNumber)
+		if err != nil {
+			return nil, err
+		}
+		users = append(users, user)
+	}
+
+	return users, nil
+}

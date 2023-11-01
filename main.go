@@ -28,8 +28,10 @@ func main() {
 	userRepository := repositories.NewUserRepository(db)
 	authService := services.NewAuthenticationService(userRepository)
 	authHandler := handlers.NewAuthenticationHandler(authService)
+	userService := services.NewUserService(userRepository)
+	userHandler := handlers.NewUserHandler(userService)
 
-	r := router.SetupRouter(authHandler)
+	r := router.SetupRouter(authHandler, userHandler)
 
 	port := 8080
 	fmt.Printf("Server is running on port %d\n", port)
