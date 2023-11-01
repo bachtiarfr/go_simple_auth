@@ -1,0 +1,20 @@
+# Gunakan gambar golang versi yang sesuai
+FROM golang:latest
+
+# Set kerja direktori ke dalam direktori proyek Anda
+WORKDIR /app
+
+# Salin isi proyek Anda ke dalam direktori kerja di dalam gambar
+COPY . .
+
+# Instal dependensi yang diperlukan
+RUN go mod tidy && go mod download && go mod vendor
+
+# Build aplikasi Golang
+RUN go build -o main .
+
+# Expose port yang digunakan oleh aplikasi
+EXPOSE 8080
+
+# Perintah untuk menjalankan migrasi dan aplikasi
+CMD go run cmd/migration.go up && ./main

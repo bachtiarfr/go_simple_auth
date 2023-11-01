@@ -1,0 +1,23 @@
+version: "3"
+services:
+  app:
+    container_name: simple-auth
+    build:
+      context: .
+      dockerfile: ./deployment/Dockerfile
+    ports:
+      - "8080:8080"
+    environment:
+      DATABASE_URL: "postgresql://username:password@db:5432/database_name?sslmode=disable" # Ganti dengan koneksi database yang sesuai
+      SECRET_KEY: "your-secret-key" # Ganti dengan kunci rahasia yang sesuai
+    depends_on:
+      - db
+  db:
+    image: postgres:latest
+    container_name: authentication-db
+    environment:
+      POSTGRES_USER: username
+      POSTGRES_PASSWORD: password
+      POSTGRES_DB: database_name
+    ports:
+      - "5432:5432"
