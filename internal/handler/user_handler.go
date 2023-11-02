@@ -3,6 +3,7 @@ package handlers
 import (
 	"encoding/json"
 	"fmt"
+	"log"
 	"net/http"
 	"simple-auth/internal/entity"
 	services "simple-auth/internal/service"
@@ -21,6 +22,7 @@ func (h *userHandler) GetAllUsers(w http.ResponseWriter, r *http.Request) {
 
 	tokenString := r.Header.Get("Authorization")
 	if tokenString == "" {
+		log.Printf("Token missing")
 		response = entity.UserResponse{
 			Code:    "01",
 			Message: "faield : token missing",
@@ -35,6 +37,7 @@ func (h *userHandler) GetAllUsers(w http.ResponseWriter, r *http.Request) {
 
 	_, err := h.userService.ValidateToken(tokenString)
 	if err != nil {
+		log.Printf("Token not validated :", err)
 		response = entity.UserResponse{
 			Code:    "01",
 			Message: fmt.Sprintf("token validation error : %s", err),
@@ -49,6 +52,7 @@ func (h *userHandler) GetAllUsers(w http.ResponseWriter, r *http.Request) {
 
 	users, err := h.userService.GetAllUsers()
 	if err != nil {
+		log.Printf("Failed to get user data :", err)
 		response = entity.UserResponse{
 			Code:    "00",
 			Message: fmt.Sprintf("failed : %s", err),
@@ -78,6 +82,7 @@ func (h *userHandler) GetUserByRefreshToken(w http.ResponseWriter, r *http.Reque
 
 	tokenString := r.Header.Get("Authorization")
 	if tokenString == "" {
+		log.Printf("Token missing")
 		response = entity.UserAffiliatedResponse{
 			Code:    "01",
 			Message: "faield : token missing",
@@ -92,6 +97,7 @@ func (h *userHandler) GetUserByRefreshToken(w http.ResponseWriter, r *http.Reque
 
 	user, err := h.userService.GetUserByRefreshToken(tokenString)
 	if err != nil {
+		log.Printf("Failed to get user data :", err)
 		response = entity.UserAffiliatedResponse{
 			Code:    "01",
 			Message: fmt.Sprintf("token validation error : %s", err),

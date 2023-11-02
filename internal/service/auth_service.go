@@ -2,6 +2,7 @@ package services
 
 import (
 	"fmt"
+	"log"
 	"simple-auth/internal/entity"
 	"simple-auth/internal/repositories"
 	"time"
@@ -27,6 +28,7 @@ func (s *authenticationService) Authenticate(email, password string) (string, er
 	}
 
 	if user == nil || !s.verifyPassword(user, password) {
+		log.Printf("invalid email or password: %v %v", email, password)
 		return "", fmt.Errorf("invalid email or password")
 	}
 
@@ -48,6 +50,7 @@ func (s *authenticationService) Authenticate(email, password string) (string, er
 func (s *authenticationService) Register(fullname string, email string, age int, phoneNumber string, hashedPassword string) (entity.User, error) {
 	user, err := s.userRepository.FindByEmail(email)
 	if user != nil {
+		log.Printf("Email exist: %v", err)
 		return entity.User{}, fmt.Errorf("Email exist")
 	}
 
@@ -61,6 +64,7 @@ func (s *authenticationService) Register(fullname string, email string, age int,
 
 	newUser, err := s.userRepository.CreateNewUser(&dataUser)
 	if user != nil {
+		log.Printf("Failed when create user: %v", err)
 		return entity.User{}, fmt.Errorf("Email exist")
 	}
 	fmt.Printf("newUser :", newUser)
