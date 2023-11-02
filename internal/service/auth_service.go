@@ -48,6 +48,29 @@ func (s *authenticationService) Authenticate(email, password string) (string, er
 	return tokenString, err
 }
 
+func (s *authenticationService) Register(fullname string, email string, age int, phoneNumber string, hashedPassword string) (entity.User, error) {
+	println("email : ", email)
+	user, err := s.userRepository.FindByEmail(email)
+	if user != nil {
+		return entity.User{}, fmt.Errorf("Email exist")
+	}
+
+	dataUser := entity.User{
+		Fullname:    fullname,
+		Email:       email,
+		Age:         age,
+		PhoneNumber: phoneNumber,
+		Password:    hashedPassword,
+	}
+
+	newUser, err := s.userRepository.CreateNewUser(&dataUser)
+	if user != nil {
+		return entity.User{}, fmt.Errorf("Email exist")
+	}
+	fmt.Printf("newUser :", newUser)
+	return entity.User{}, err
+}
+
 func (s *authenticationService) verifyPassword(user *entity.User, password string) bool {
 	err := bcrypt.CompareHashAndPassword([]byte(user.Password), []byte(password))
 	return err == nil

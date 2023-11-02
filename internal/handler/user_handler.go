@@ -8,10 +8,6 @@ import (
 	services "simple-auth/internal/service"
 )
 
-type UserHandler interface {
-	GetAllUsers(w http.ResponseWriter, r *http.Request)
-}
-
 type userHandler struct {
 	userService services.UserService
 }

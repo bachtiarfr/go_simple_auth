@@ -6,8 +6,14 @@ type LoginResponse struct {
 	Token   string `json:"token"`
 }
 
-type UserResponse struct {
+type RegisterResponse struct {
 	Code    string `json:"code"`
 	Message string `json:"message"`
-	Data    []User `json:"data"`
+	Data    *User  `json:"data"`
+}
+
+type UserResponse struct {
+	Code    string     `json:"code"`
+	Message string     `json:"message"`
+	Data    []ListUser `json:"data"`
 }

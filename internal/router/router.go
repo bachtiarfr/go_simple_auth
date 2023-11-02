@@ -10,6 +10,7 @@ func SetupRouter(authHandler handlers.AuthenticationHandler, userHandler handler
 	r := mux.NewRouter()
 
 	r.HandleFunc("/api/v1/login", authHandler.Login).Methods("POST")
+	r.HandleFunc("/api/v1/register", authHandler.Register).Methods("POST")
 	r.HandleFunc("/api/v1/users", userHandler.GetAllUsers).Methods("GET")
 
 	return r
