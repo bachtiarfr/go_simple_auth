@@ -127,5 +127,5 @@ go test ./internal/test
 untuk deploy service ini, menggunakan docker container
 
 ```bash
-go test ./internal/test
+docker-compose up --build
 ```
