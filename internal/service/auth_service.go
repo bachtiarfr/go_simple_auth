@@ -2,8 +2,6 @@ package services
 
 import (
 	"fmt"
-	"log"
-	"simple-auth/internal/config"
 	"simple-auth/internal/entity"
 	"simple-auth/internal/repositories"
 	"time"
@@ -23,12 +21,6 @@ func NewAuthenticationService(userRepository repositories.UserRepository) Authen
 }
 
 func (s *authenticationService) Authenticate(email, password string) (string, error) {
-	config, err := config.ReadConfig("internal/config/config.yaml")
-	if err != nil {
-		log.Fatalf("Failed to read config file: %v", err)
-		return "", err
-	}
-
 	user, err := s.userRepository.FindByEmail(email)
 	if err != nil {
 		return "", err
@@ -43,7 +35,7 @@ func (s *authenticationService) Authenticate(email, password string) (string, er
 		"exp": time.Now().Add(time.Minute * 30).Unix(),
 	}
 	token := jwt.NewWithClaims(jwt.SigningMethodHS256, claims)
-	tokenString, err := token.SignedString([]byte(config.SecretKey))
+	tokenString, err := token.SignedString([]byte("my-secret-key"))
 
 	errToken := s.userRepository.CreateOrUpdateRefreshToken(tokenString, user.ID)
 	if errToken != nil {
