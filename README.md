@@ -20,11 +20,17 @@ untuk migration up jalankan
 go run cmd/migration.go up
 ```
 
+contoh:
+![Alt text](image-2.png)
+
 untuk migration down jalankan
 
 ```bash
 go run cmd/migration.go down
 ```
+
+contoh :
+![Alt text](image.png)
 
 ## List endpoin API
 
