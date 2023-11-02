@@ -113,3 +113,19 @@ contoh :
     }
   }
   ```
+
+## Unit testing
+
+untuk menjalankan unit testing lakukan perintah
+
+```bash
+go test ./internal/test
+```
+
+## Deployment
+
+untuk deploy service ini, menggunakan docker container
+
+```bash
+go test ./internal/test
+```
