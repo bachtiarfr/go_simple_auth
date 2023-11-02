@@ -56,3 +56,52 @@ go run cmd/migration.go down
     "password": "password2"
   }
   ```
+
+### 3. Get All Users
+
+- **URL**: `http://127.0.0.1:8080/api/v1/users`
+- **Metode**: `GET`
+- **Deskripsi**: Endpoint ini digunakan untuk mendapatkan data semua user.
+- **Response Body**:
+  ```json
+  {
+    "code": "00",
+    "message": "success",
+    "data": [
+      {
+        "user_id": 1,
+        "fullname": "Test User",
+        "email": "test@example.com",
+        "age": 35,
+        "phone_number": "+62895334568841"
+      },
+      {
+        "user_id": 2,
+        "fullname": "fatur",
+        "email": "test2@example.com",
+        "age": 24,
+        "phone_number": "0895334568841"
+      }
+    ]
+  }
+  ```
+
+### 4. Get Affiliated User (based on access_token)
+
+- **URL**: `http://127.0.0.1:8080/api/v1/user`
+- **Metode**: `GET`
+- **Deskripsi**: Endpoint ini digunakan untuk mendapatkan data user yang terafiliasi dengan token_access.
+- **Response Body**:
+  ```json
+  {
+    "code": "00",
+    "message": "success",
+    "data": {
+      "user_id": 1,
+      "fullname": "Test User",
+      "email": "test@example.com",
+      "age": 35,
+      "phone_number": "+62895334568841"
+    }
+  }
+  ```
