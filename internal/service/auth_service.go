@@ -49,7 +49,6 @@ func (s *authenticationService) Authenticate(email, password string) (string, er
 }
 
 func (s *authenticationService) Register(fullname string, email string, age int, phoneNumber string, hashedPassword string) (entity.User, error) {
-	println("email : ", email)
 	user, err := s.userRepository.FindByEmail(email)
 	if user != nil {
 		return entity.User{}, fmt.Errorf("Email exist")
