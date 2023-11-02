@@ -2,7 +2,7 @@
 
 Teckstack : Golang, PostgreSQL
 
-# Pull repository
+## Pull repository
 
 Clone terlebih dahulu dari link repository
 
@@ -25,3 +25,32 @@ untuk migration down jalankan
 ```bash
 go run cmd/migration.go down
 ```
+
+## List endpoin API
+
+### 1. Autentikasi (Login)
+
+- **URL**: `http://127.0.0.1:8080/api/v1/login`
+- **Metode**: `POST`
+- **Deskripsi**: Endpoint ini digunakan untuk melakukan autentikasi.
+- **Request Body**:
+  ```json
+  {
+    "email": "test@example.com",
+    "password": "password"
+  }
+  ```
+
+````
+### 2. Autentikasi (Register)
+
+- **URL**: `http://127.0.0.1:8080/api/v1/register`
+- **Metode**: `POST`
+- **Deskripsi**: Endpoint ini digunakan untuk melakukan autentikasi.
+- **Request Body**:
+  ```json
+  {
+    "email": "test@example.com",
+    "password": "password"
+  }
+````
