@@ -36,6 +36,8 @@ contoh :
 
 ### 1. Autentikasi (Login)
 
+untuk login, sudah saya sediakan data dummy data nya pada saat migration dengan email: "test@example.com" dan password "password"
+
 - **URL**: `http://127.0.0.1:8080/api/v1/login`
 - **Metode**: `POST`
 - **Deskripsi**: Endpoint ini digunakan untuk melakukan autentikasi.
