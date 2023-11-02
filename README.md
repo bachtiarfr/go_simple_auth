@@ -2,7 +2,7 @@
 
 Teckstack : Golang, PostgreSQL
 
-## Pull repository
+## Instalasi
 
 Clone terlebih dahulu dari link repository
 
@@ -41,7 +41,6 @@ go run cmd/migration.go down
   }
   ```
 
-````
 ### 2. Autentikasi (Register)
 
 - **URL**: `http://127.0.0.1:8080/api/v1/register`
@@ -50,7 +49,10 @@ go run cmd/migration.go down
 - **Request Body**:
   ```json
   {
-    "email": "test@example.com",
-    "password": "password"
+    "fullname": "fatur",
+    "email": "test2@example.com",
+    "age": 24,
+    "phone_number": "0895334568841",
+    "password": "password2"
   }
-````
+  ```
