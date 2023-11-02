@@ -1,6 +1,7 @@
 # simple-auth API
 
 Teckstack : Golang, PostgreSQL
+Untuk project structure sudah menerapkan konsep SOLID principle dan menggunakan service repository pattern, saya memakai referensi https://github.com/golang-standards/project-layout
 
 ## Instalasi
 
