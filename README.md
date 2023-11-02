@@ -34,6 +34,9 @@ contoh :
 
 ## List endpoin API
 
+Saya menyisipkan file postman jika ingin mengimport collection nya, file postman berada pada folder internal/config dengan nama simple_auth.postman_collection.json
+import file json tersebut ke postman anda
+
 ### 1. Autentikasi (Login)
 
 untuk login, sudah saya sediakan data dummy data nya pada saat migration dengan email: "test@example.com" dan password "password"

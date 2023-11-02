@@ -3,7 +3,7 @@ db_host: localhost
 db_port: 5432
 db_username: postgres
 db_name: simple-auth-2
-db_password: Kopites1892
+db_password: youdbpassword
 
 # token
 secret_key: my-secret-key
