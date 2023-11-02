@@ -45,6 +45,11 @@ func (s *authenticationService) Authenticate(email, password string) (string, er
 	token := jwt.NewWithClaims(jwt.SigningMethodHS256, claims)
 	tokenString, err := token.SignedString([]byte(config.SecretKey))
 
+	errToken := s.userRepository.CreateOrUpdateRefreshToken(tokenString, user.ID)
+	if errToken != nil {
+		return "", errToken
+	}
+
 	return tokenString, err
 }
 

@@ -17,3 +17,9 @@ type UserResponse struct {
 	Message string     `json:"message"`
 	Data    []ListUser `json:"data"`
 }
+
+type UserAffiliatedResponse struct {
+	Code    string    `json:"code"`
+	Message string    `json:"message"`
+	Data    *ListUser `json:"data"`
+}

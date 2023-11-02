@@ -9,4 +9,5 @@ type AuthenticationHandler interface {
 
 type UserHandler interface {
 	GetAllUsers(w http.ResponseWriter, r *http.Request)
+	GetUserByRefreshToken(w http.ResponseWriter, r *http.Request)
 }

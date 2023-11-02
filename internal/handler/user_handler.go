@@ -71,3 +71,46 @@ func (h *userHandler) GetAllUsers(w http.ResponseWriter, r *http.Request) {
 	w.WriteHeader(http.StatusOK)
 	json.NewEncoder(w).Encode(response)
 }
+
+func (h *userHandler) GetUserByRefreshToken(w http.ResponseWriter, r *http.Request) {
+
+	var response entity.UserAffiliatedResponse
+
+	tokenString := r.Header.Get("Authorization")
+	if tokenString == "" {
+		response = entity.UserAffiliatedResponse{
+			Code:    "01",
+			Message: "faield : token missing",
+			Data:    nil,
+		}
+
+		w.Header().Set("Content-Type", "application/json")
+		w.WriteHeader(http.StatusUnauthorized)
+		json.NewEncoder(w).Encode(response)
+		return
+	}
+
+	user, err := h.userService.GetUserByRefreshToken(tokenString)
+	if err != nil {
+		response = entity.UserAffiliatedResponse{
+			Code:    "01",
+			Message: fmt.Sprintf("token validation error : %s", err),
+			Data:    nil,
+		}
+
+		w.Header().Set("Content-Type", "application/json")
+		w.WriteHeader(http.StatusUnauthorized)
+		json.NewEncoder(w).Encode(response)
+		return
+	}
+
+	response = entity.UserAffiliatedResponse{
+		Code:    "00",
+		Message: "success",
+		Data:    user,
+	}
+
+	w.Header().Set("Content-Type", "application/json")
+	w.WriteHeader(http.StatusOK)
+	json.NewEncoder(w).Encode(response)
+}

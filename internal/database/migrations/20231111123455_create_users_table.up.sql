@@ -1,4 +1,4 @@
--- migrations/20231030_create_users_table.up.sql
+-- migrations/20231111123455_create_users_table.up.sql
 
 CREATE TABLE users (
     id SERIAL PRIMARY KEY,

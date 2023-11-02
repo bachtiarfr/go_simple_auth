@@ -14,4 +14,5 @@ type AuthenticationService interface {
 type UserService interface {
 	GetAllUsers() ([]entity.ListUser, error)
 	ValidateToken(tokenString string) (jwt.Claims, error)
+	GetUserByRefreshToken(token string) (*entity.ListUser, error)
 }

@@ -46,3 +46,7 @@ func (s *userService) ValidateToken(tokenString string) (jwt.Claims, error) {
 func (s *userService) GetAllUsers() ([]entity.ListUser, error) {
 	return s.userRepository.FindAll()
 }
+
+func (s *userService) GetUserByRefreshToken(token string) (*entity.ListUser, error) {
+	return s.userRepository.GetUserByRefreshToken(token)
+}
