@@ -62,6 +62,7 @@ go run cmd/migration.go down
 - **URL**: `http://127.0.0.1:8080/api/v1/users`
 - **Metode**: `GET`
 - **Deskripsi**: Endpoint ini digunakan untuk mendapatkan data semua user.
+- **Header Authorization diperlukan.**
 - **Response Body**:
   ```json
   {
@@ -91,6 +92,7 @@ go run cmd/migration.go down
 - **URL**: `http://127.0.0.1:8080/api/v1/user`
 - **Metode**: `GET`
 - **Deskripsi**: Endpoint ini digunakan untuk mendapatkan data user yang terafiliasi dengan token_access.
+- **Header Authorization diperlukan.**
 - **Response Body**:
   ```json
   {
